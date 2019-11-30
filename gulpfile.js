@@ -1,11 +1,11 @@
 const gulp = require('gulp'),
 	watch = require('gulp-watch'),
 	prefixer = require('gulp-autoprefixer'),
-	uglify = require('gulp-uglify'),
 	sass = require('gulp-sass'),
 	cssMin = require('gulp-minify-css'),
 	rimRaf = require('rimraf'),
 	rename = require('gulp-rename'),
+	terser = require('gulp-terser'),
 	browserSync = require('browser-sync'),
 	reload = browserSync.reload;
 
@@ -44,7 +44,7 @@ gulp.task('html:build', function() {
 
 gulp.task('js:build', function() {
 	return gulp.src(path.src.js)
-		.pipe(uglify())
+		.pipe(terser())
 		.pipe(rename('scripts.min.js'))
 		.pipe(gulp.dest(path.build.js))
 		.pipe(reload({stream: true}));
