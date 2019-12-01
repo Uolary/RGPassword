@@ -17,7 +17,7 @@ const path = {
 	},
 	src: {
 		html: 'src/*.html',
-		js: 'src/js/*.js',
+		js: 'src/js/',
 		style: 'src/style/main.scss'
 	},
 	watch: {
@@ -43,9 +43,11 @@ gulp.task('html:build', function() {
 })
 
 gulp.task('js:build', function() {
-	return gulp.src(path.src.js)
+	return gulp.src([path.src.js + 'main.js', path.src.js + 'modernizr-custom.js'])
 		.pipe(terser())
-		.pipe(rename('scripts.min.js'))
+		.pipe(rename({
+			suffix: '.min'
+		}))
 		.pipe(gulp.dest(path.build.js))
 		.pipe(reload({stream: true}));
 });

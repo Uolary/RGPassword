@@ -105,10 +105,35 @@ body {
 			cursor: pointer;
 		}
 	}
+
+	.support-error {
+		padding: 2em;
+		display: none;
+
+		h2 {
+			font-family: 'Montserrat', sans-serif;
+		  font-weight: 400;
+		  font-size: 150%;
+		  color: #F27A54;
+		}
+
+		p {
+			font-family: 'Montserrat', sans-serif;
+		  font-weight: 400;
+		  font-size: 1.5em;
+		  color: #fff;			
+		}
+	}
 }
 
 @media screen and (max-width: 768px) {
 	.inner {
 		flex-basis: 80% !important;
+
+		.output-password {
+			span {
+				font-size: 4vw !important;
+			}
+		}
 	}
 }
