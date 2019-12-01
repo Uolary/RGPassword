@@ -1,7 +1,8 @@
 const outputPassword = document.querySelector('.output-password span'),
 			cdnScript = document.querySelector('script#cdn-algorithm'),
 			inputCheckboxSymbols = document.querySelector('.spec-symbols input'),
-			selectHashing = document.querySelectorAll('.select-hashing input'),
+			inputCase = document.querySelectorAll('.letter-case input'),
+			inputHashing = document.querySelectorAll('.select-hashing input'),
 			btnCreatePassword = document.querySelector('.create-password'),
 			specSymbols = ['%', ':', '*', '#', '@', '%', '&'],
 			hashings = {
@@ -30,12 +31,12 @@ let activeHashing = 'md5';
 // 	console.log(`Active algorithm hashing: ${activeHashing}`);
 // }));
 
-for (let i = 0; i < selectHashing.length; i++) {
-	selectHashing[i].addEventListener('click', function() {
-		activeHashing = selectHashing[i].value; 
+for (let i = 0; i < inputHashing.length; i++) {
+	inputHashing[i].addEventListener('click', function() {
+		activeHashing = inputHashing[i].value; 
 		console.log(`Active algorithm hashing: ${activeHashing}`);
 	})
-}
+};
 
 // button create password
 btnCreatePassword.addEventListener('click', function() {
@@ -65,18 +66,35 @@ function changeByOptions(str) {
 		arrPassword = arrPassword.slice(0, 32);
 	}
 
-	let upperstep = getRandomInRange(0, arrPassword.length);
+	let upperstep = getRandomInRange(0, arrPassword.length - 1);
 
 	for (let i = 0; i < arrPassword.length; i++) {
 		if (inputCheckboxSymbols.checked) {
 			if (i % upperstep == 0 && i != 0) {
-		    arrPassword[i] = specSymbols[getRandomInRange(0, specSymbols.length)];
+		    arrPassword[i] = specSymbols[getRandomInRange(0, specSymbols.length - 1)];
 		  }
 		}
 	}
 
+	if (check() == 'mixedcase') {
+		for (let i = 0; i < arrPassword.length; i++) {
+			upperstep = upperstep % 3;
+			if (i % upperstep == 0 && i != 0) {
+		    arrPassword[i] = arrPassword[i].toUpperCase();
+			}
+		}
+	} else if (check() == 'uppercase') {
+		for (let i = 0; i < arrPassword.length; i++) {
+			arrPassword[i] = arrPassword[i].toUpperCase();
+		}
+	} else if (check() == 'lowercase') {
+		for (let i = 0; i < arrPassword.length; i++) {
+			arrPassword[i] = arrPassword[i].toLowerCase();
+		}		
+	}
+
 	return arrPassword.join('');
-}
+};
 
 function createRandomNumber() {
 	let array = new Uint32Array(1);
@@ -86,11 +104,19 @@ function createRandomNumber() {
 	let newArray = Array.prototype.slice.call(array) || Array.from(array);
 
 	return newArray.join();
-}
+};
+
+function check() {
+  for (let i = 0; i < inputCase.length; i++) {
+    if (inputCase[i].type == "radio" && inputCase[i].checked) {
+      return inputCase[i].value;
+    }
+  }
+};
 
 function getRandomInRange(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+};
 
 function checkNumberLength(n) {
 	let number = String(n).split('');
@@ -102,4 +128,4 @@ function checkNumberLength(n) {
 	};
 	number = Number(number.join(''));
 	return number;
-}
+};
