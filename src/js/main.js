@@ -1,7 +1,9 @@
 const outputPassword = document.querySelector('.output-password span'),
 			cdnScript = document.querySelector('script#cdn-algorithm'),
+			inputCheckboxSymbols = document.querySelector('.spec-symbols input'),
 			selectHashing = document.querySelectorAll('.select-hashing input'),
 			btnCreatePassword = document.querySelector('.create-password'),
+			specSymbols = ['%', ':', '*', '#', '@', '%', '&'],
 			hashings = {
 				md2(text) {
 					return md2(text);
@@ -28,13 +30,14 @@ let activeHashing = 'md5';
 // 	console.log(`Active algorithm hashing: ${activeHashing}`);
 // }));
 
-for (var i = 0; i < selectHashing.length; i++) {
+for (let i = 0; i < selectHashing.length; i++) {
 	selectHashing[i].addEventListener('click', function() {
-		activeHashing = selectHashing[i].value;
+		activeHashing = selectHashing[i].value; 
 		console.log(`Active algorithm hashing: ${activeHashing}`);
 	})
 }
 
+// button create password
 btnCreatePassword.addEventListener('click', function() {
 	let randomNumber = 0;
 
@@ -48,14 +51,32 @@ btnCreatePassword.addEventListener('click', function() {
 
 	let newPassword = hashings[activeHashing](randomNumber);
 
-	if (newPassword.length > 32) {
-		newPassword = newPassword.slice(0, 32);
-	}
+	newPassword = changeByOptions(newPassword);
 	
 	outputPassword.innerHTML = newPassword;
 
 	console.log(`Random number: ${randomNumber}`);
 });
+
+function changeByOptions(str) {
+	let arrPassword = str.split('');
+
+	if (arrPassword.length > 32) {
+		arrPassword = arrPassword.slice(0, 32);
+	}
+
+	let upperstep = getRandomInRange(0, arrPassword.length);
+
+	for (let i = 0; i < arrPassword.length; i++) {
+		if (inputCheckboxSymbols.checked) {
+			if (i % upperstep == 0 && i != 0) {
+		    arrPassword[i] = specSymbols[getRandomInRange(0, specSymbols.length)];
+		  }
+		}
+	}
+
+	return arrPassword.join('');
+}
 
 function createRandomNumber() {
 	let array = new Uint32Array(1);
