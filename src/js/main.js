@@ -2,6 +2,7 @@ const outputPassword = document.querySelector('.output-password span'),
 			cdnScript = document.querySelector('script#cdn-algorithm'),
 			inputCheckboxSymbols = document.querySelector('.spec-symbols input'),
 			inputCase = document.querySelectorAll('.letter-case input'),
+			inputLengthPassword = document.querySelector('.length-password input'),
 			inputHashing = document.querySelectorAll('.select-hashing input'),
 			btnCreatePassword = document.querySelector('.create-password'),
 			specSymbols = ['%', ':', '*', '#', '@', '%', '&'],
@@ -62,11 +63,9 @@ btnCreatePassword.addEventListener('click', function() {
 function changeByOptions(str) {
 	let arrPassword = str.split('');
 
-	if (arrPassword.length > 32) {
-		arrPassword = arrPassword.slice(0, 32);
-	}
+	arrPassword = checkLengthPassword(arrPassword);
 
-	let upperstep = getRandomInRange(0, arrPassword.length - 1);
+	let upperstep = getRandomInRange(2, arrPassword.length - 1);
 
 	for (let i = 0; i < arrPassword.length; i++) {
 		if (inputCheckboxSymbols.checked) {
@@ -129,3 +128,20 @@ function checkNumberLength(n) {
 	number = Number(number.join(''));
 	return number;
 };
+
+inputLengthPassword.addEventListener('change', function() {
+	if (this.value > 32) {
+		this.value = 32;
+	} else if (this.value < 4) {
+		this.value = 4;
+	}
+});
+
+function checkLengthPassword(text) {
+	let inputLengthP = inputLengthPassword.value;
+	let newText = text;
+
+	newText = newText.slice(0, inputLengthP); 
+	
+	return newText;
+}

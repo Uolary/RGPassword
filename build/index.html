@@ -16,8 +16,13 @@
 				<span>Your password</span>
 			</div>
 			<div class="extra-options">
-				<div class="spec-symbols">
-					<label><input type="checkbox"><span>Special symbols</span></label>
+				<div class="sl">
+					<div class="spec-symbols">
+						<label><input type="checkbox"><span>Special symbols</span></label>
+					</div>
+					<div class="length-password">
+						<label><span>Length password: </span><input type="number" min="4" max="32" value="32" onkeypress='return event.charCode >= 48 && event.charCode <= 57'></label>
+					</div>
 				</div>
 				<div class="letter-case">
 					<label><input type="radio" name="case" value="uppercase"><span>Uppercase</span></label>
