@@ -78,6 +78,7 @@ body {
 				font-weight: bold;
 				font-size: 1.7em;
 				color: #F27A54;
+				text-align: center;
 			}
 		}
 
@@ -90,6 +91,10 @@ body {
 
 				>div {
 					margin: 0 0.5em;
+				}
+				
+				.to-group {
+					@include label;
 				}
 
 				.spec-symbols {
@@ -108,7 +113,7 @@ body {
 					    border: none;
 					    outline: none;
 					    // border-bottom: 1px solid #747D88;
-					    color: #CBCFD4;
+					    color: #F27A54;;
 						}				
 
 						input::-webkit-outer-spin-button,

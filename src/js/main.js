@@ -1,5 +1,6 @@
 const outputPassword = document.querySelector('.output-password span'),
 			cdnScript = document.querySelector('script#cdn-algorithm'),
+			inputCheckboxToGroup = document.querySelector('.to-group input'),
 			inputCheckboxSymbols = document.querySelector('.spec-symbols input'),
 			inputCase = document.querySelectorAll('.letter-case input'),
 			inputLengthPassword = document.querySelector('.length-password input'),
@@ -67,13 +68,19 @@ function changeByOptions(str) {
 
 	let upperstep = getRandomInRange(2, arrPassword.length - 1);
 
-	for (let i = 0; i < arrPassword.length; i++) {
+	for (let i = 1; i < arrPassword.length; i++) {
 		if (inputCheckboxSymbols.checked) {
 			if (i % upperstep == 0 && i != 0) {
 		    arrPassword[i] = specSymbols[getRandomInRange(0, specSymbols.length - 1)];
 		  }
 		}
-	}
+
+		if (inputCheckboxToGroup.checked) {
+			if (i % 5 == 0) {
+				arrPassword.splice(i - 1, 0, '-');
+			}
+		}
+	};
 
 	if (check() == 'mixedcase') {
 		for (let i = 0; i < arrPassword.length; i++) {
@@ -90,7 +97,7 @@ function changeByOptions(str) {
 		for (let i = 0; i < arrPassword.length; i++) {
 			arrPassword[i] = arrPassword[i].toLowerCase();
 		}		
-	}
+	};
 
 	return arrPassword.join('');
 };
