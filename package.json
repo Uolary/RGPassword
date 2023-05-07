@@ -16,7 +16,7 @@
     "rimraf": "^3.0.0"
   },
   "dependencies": {
-    "browser-sync": "^2.26.7",
+    "browser-sync": "^2.29.1",
     "gulp-autoprefixer": "^7.0.1",
     "gulp-minify-css": "^1.2.4",
     "gulp-sass": "^4.0.2"
